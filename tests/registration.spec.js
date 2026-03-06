@@ -142,6 +142,18 @@ test.describe('Student Registration Form Tests', () => {
         const dropdownMenu = page.locator('[class$="-menu"]');
         await expect(dropdownMenu).toContainText('Delhi');
         await expect(dropdownMenu).toContainText('Gurgaon');
+
+        // State 3: Change to State 2 (Uttar Pradesh) 
+        await registrationPage.stateDropdown.click();
+        await page.getByText('Uttar Pradesh', { exact: true }).click();
+
+        await registrationPage.cityDropdown.click();
+        // ต้องมีเมืองของ Uttar Pradesh ปรากฏขึ้นมา
+        await expect(dropdownMenu).toContainText('Agra');
+        await expect(dropdownMenu).toContainText('Lucknow');
+        await expect(dropdownMenu).toContainText('Merrut');
+        
+        await expect(dropdownMenu).not.toContainText('Delhi');
     });
 
     //AC4: Subjects allow multiple entries
