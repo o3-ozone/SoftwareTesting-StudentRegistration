@@ -33,7 +33,6 @@ class RegistrationPage {
     }
 
     async selectGender(gender) {
-        // DemoQA uses a specific structure for radio buttons, clicking the label is safer
         await this.page.locator(`label[for="gender-radio-${gender === 'Male' ? '1' : gender === 'Female' ? '2' : '3'}"]`).click();
     }
 
@@ -42,7 +41,6 @@ class RegistrationPage {
         await this.page.locator('.react-datepicker__month-select').selectOption(monthIndex);
         await this.page.locator('.react-datepicker__year-select').selectOption(year);
         
-        // Ensure day format has no leading zero for DemoQA's selector
         await this.page.locator(`.react-datepicker__day--0${day.padStart(2, '0')}`).first().click();
     }
 
