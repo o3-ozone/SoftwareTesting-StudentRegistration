@@ -65,10 +65,9 @@ test.describe('Student Registration Form Tests', () => {
         await registrationPage.navigate();
     });
 
-    /*
-    AC1: Verify that a user can successfully submit the form with valid data
-    Technique: Equivalence Partitioning 
-    */
+    
+    //AC1: Verify that a user can successfully submit the form with valid data
+    
     test('AC1: Successful form submission', async ({ page }) => {
         await registrationPage.firstName.fill('Somchai');
         await registrationPage.lastName.fill('Jaidee');
@@ -155,12 +154,17 @@ test.describe('Student Registration Form Tests', () => {
 
         await expect(mathTag).toBeVisible();
         await expect(physicsTag).toBeVisible();
+
+        await mathTag.locator('.subjects-auto-complete__multi-value__remove').click();
+
+        // ตรวจสอบว่า Maths หายไปแล้ว แต่ Physics ยังต้องอยู่
+        await expect(mathTag).not.toBeVisible();
+        await expect(physicsTag).toBeVisible();
     });
 
-    /*
-    AC5: Submission modal must show exact data
-    Technique: Statement Coverage 
-    */
+    
+    //AC5: Submission modal must show exact data
+    
     test('AC5: Modal displays correct submitted data', async ({ page }) => {
         await registrationPage.firstName.fill('Somchai');
         await registrationPage.lastName.fill('Jaidee');
@@ -236,10 +240,7 @@ test.describe('Student Registration Form Tests', () => {
         await expect(registrationPage.email).not.toHaveCSS('border-color', 'rgb(220, 53, 69)');
     });
 
-    /*
-    AC6.3: Date of Birth Validation
-    Technique: Functional Testing
-    */
+    //AC6.3: Date of Birth Validation
     test('AC6.3: Date of Birth defaults to current date and allows manual selection', async () => {
         // 1. ตรวจสอบ Default Value ว่าตรงกับ Current System Date หรือไม่
         const today = new Date();
